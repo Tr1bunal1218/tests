@@ -39,7 +39,7 @@ make_tests: $(TEST_OBJ) $(LIB_OBJ)
 	mkdir -p bin
 	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o bin/tests $(SFML_LIBS)
 	
-run_tests: $(TEST_OBJ) $(LIB_OBJ)
+run_tests: 
 	./bin/tests
 
 clean:
