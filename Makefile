@@ -3,6 +3,8 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
 SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 TARGET = bin/game
+TEST_TARGET = bin/tests
+
 SRC_DIR = src/app
 LIB_SRC_DIR = src/app_lib
 TEST_SRC_DIR = tests
@@ -17,7 +19,7 @@ LIB_OBJ = $(OBJ_DIR)/functions.o
 TEST_SRC = $(TEST_SRC_DIR)/tests.cpp
 TEST_OBJ = $(OBJ_DIR)/tests.o
 
-all: $(TARGET) run_tests
+all: $(TARGET) $(TEST_TARGET)
 
 $(TARGET): $(OBJ) $(LIB_OBJ)
 	mkdir -p bin
@@ -35,13 +37,12 @@ $(TEST_OBJ): $(TEST_SRC)
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CXXFLAGS) -c $(TEST_SRC) -o $(TEST_OBJ)
 
-make_tests: $(TEST_OBJ) $(LIB_OBJ)
+$(TEST_TARGET): $(TEST_OBJ) $(LIB_OBJ)
 	mkdir -p bin
-	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o bin/tests $(SFML_LIBS)
-	
-.PHONY: run_test
-run_tests: 
-	./bin/tests
+	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o $(TEST_TARGET) $(SFML_LIBS)
+
+run_tests: $(TEST_TARGET)
+	./$(TEST_TARGET)
 
 clean:
 	rm -rf $(OBJ_DIR) bin
