@@ -16,7 +16,7 @@ jobs:
       - name: Setup libs
         run: |
           sudo apt-get install -y libsfml-dev
-	  sudo apt-get install clang-format
+          sudo apt-get install clang-format
 
       - name: Check codestyle
         run: |
