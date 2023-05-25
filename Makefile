@@ -35,9 +35,12 @@ $(TEST_OBJ): $(TEST_SRC)
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CXXFLAGS) -c $(TEST_SRC) -o $(TEST_OBJ)
 
-run_tests: $(TEST_OBJ) $(LIB_OBJ)
+make_tests: $(TEST_OBJ) $(LIB_OBJ)
 	mkdir -p bin
 	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o bin/tests $(SFML_LIBS)
+	
+run_tests: $(TEST_OBJ) $(LIB_OBJ)
+	./bin/tests
 
 clean:
 	rm -rf $(OBJ_DIR) bin
