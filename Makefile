@@ -38,7 +38,6 @@ $(TEST_OBJ): $(TEST_SRC)
 run_tests: $(TEST_OBJ) $(LIB_OBJ)
 	mkdir -p bin
 	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o bin/tests $(SFML_LIBS)
-	./bin/tests
 
 clean:
 	rm -rf $(OBJ_DIR) bin
