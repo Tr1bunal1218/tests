@@ -44,5 +44,8 @@ $(TEST_TARGET): $(TEST_OBJ) $(LIB_OBJ)
 run_tests: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
+main: $(TARGET)
+	./$(TARGET)
+
 clean:
 	rm -rf $(OBJ_DIR) bin
