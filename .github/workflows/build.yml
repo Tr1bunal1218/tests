@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt-get install -y libsfml-dev
           sudo apt-get install clang-format
-          sudo apt install xvfb
+          sudo apt-get install xorg openbox
 
       - name: Check codestyle
         run: |
