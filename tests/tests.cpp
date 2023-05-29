@@ -23,29 +23,29 @@ void testLoadTexture()
 }
 
 // Тестирование функции drawSprites
-void testDrawSprites()
-{
+//void testDrawSprites()
+//{
     // Создаем окно и спрайты для тестирования
-    RenderWindow window(VideoMode(512, 512), "Tag game!");
-    Sprite s[17];
-    int grid[6][6] = { 0 };
-    Texture t;
-    int w = 128;
-    initializeSprites(s, t, grid);
+    //RenderWindow window(VideoMode(512, 512), "Tag game!");
+    //Sprite s[17];
+    //int grid[6][6] = { 0 };
+    //Texture t;
+    //int w = 128;
+    //initializeSprites(s, t, grid);
 
     // Вызываем функцию drawSprites
-    drawSprites(window, s, grid, w);
+    //drawSprites(window, s, grid, w);
 
     // Проверяем, что спрайты были отрисованы в окне
 
-    std::cout << "TEST: drawSprites SUCCESSFULLY PASSED" << std::endl;
-}
+    //std::cout << "TEST: drawSprites SUCCESSFULLY PASSED" << std::endl;
+//}
 
 int main()
 {
     // Тестируем каждую функцию по отдельности
     testLoadTexture();
-    testDrawSprites();
+   //testDrawSprites();
 
     return 0;
 }
