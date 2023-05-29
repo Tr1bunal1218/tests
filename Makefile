@@ -1,51 +1,28 @@
-CC = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
-SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
-
-TARGET = bin/game
-TEST_TARGET = bin/tests
-
-SRC_DIR = src/app
-LIB_SRC_DIR = src/app_lib
-TEST_SRC_DIR = tests
-
-SRC = $(SRC_DIR)/main.cpp
-OBJ_DIR = obj
-OBJ = $(OBJ_DIR)/main.o
-
-LIB_SRC = $(LIB_SRC_DIR)/functions.cpp
-LIB_OBJ = $(OBJ_DIR)/functions.o
-
-TEST_SRC = $(TEST_SRC_DIR)/tests.cpp
-TEST_OBJ = $(OBJ_DIR)/tests.o
-
-all: $(TARGET) $(TEST_TARGET)
-
-$(TARGET): $(OBJ) $(LIB_OBJ)
+all: obj/main.o obj/functions.o
 	mkdir -p bin
-	$(CC) $(OBJ) $(LIB_OBJ) -o $(TARGET) $(SFML_LIBS)
+	g++ obj/main.o obj/functions.o -o bin/game -lsfml-graphics -lsfml-window -lsfml-system
 
-$(OBJ): $(SRC)
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c $(SRC) -o $(OBJ)
+obj/main.o: src/app/main.cpp
+	mkdir -p obj
+	g++ -std=c++11 -c src/app/main.cpp -o obj/main.o
 
-$(LIB_OBJ): $(LIB_SRC)
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c $(LIB_SRC) -o $(LIB_OBJ)
+obj/functions.o: src/app_lib/functions.cpp
+	mkdir -p obj
+	g++ -std=c++11 -c src/app_lib/functions.cpp -o obj/functions.o
 
-$(TEST_OBJ): $(TEST_SRC)
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c $(TEST_SRC) -o $(TEST_OBJ)
-
-$(TEST_TARGET): $(TEST_OBJ) $(LIB_OBJ)
+tests: obj/tests.o obj/functions.o
 	mkdir -p bin
-	$(CC) $(TEST_OBJ) $(LIB_OBJ) -o $(TEST_TARGET) $(SFML_LIBS)
+	g++ obj/tests.o obj/functions.o -o bin/tests -lsfml-graphics -lsfml-window -lsfml-system
 
-run_tests: $(TEST_TARGET)
-	./$(TEST_TARGET)
+obj/tests.o: tests/tests.cpp
+	mkdir -p obj
+	g++ -std=c++11 -c tests/tests.cpp -o obj/tests.o
 
-main: $(TARGET)
-	./$(TARGET)
+run_tests: bin/tests
+	./bin/tests
+
+run: bin/game
+	./bin/game
 
 clean:
-	rm -rf $(OBJ_DIR) bin
+	rm -rf obj bin
