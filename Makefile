@@ -18,7 +18,7 @@ obj/tests.o: tests/tests.cpp
 	mkdir -p obj
 	g++ -std=c++11 -c tests/tests.cpp -o obj/tests.o
 
-tests: bin/tests
+run_tests: bin/tests
 	./bin/tests
 
 run: bin/game
