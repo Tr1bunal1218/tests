@@ -1,28 +1,37 @@
-all: obj/main.o obj/functions.o
-	mkdir -p bin
-	g++ obj/main.o obj/functions.o -o bin/game -lsfml-graphics -lsfml-window -lsfml-system
+CC = g++
+CXXFLAGS = -std=c++11
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-obj/main.o: src/app/main.cpp
-	mkdir -p obj
-	g++ -std=c++11 -c src/app/main.cpp -o obj/main.o
+OBJ_DIR = obj
+BIN_DIR = bin
 
-obj/functions.o: src/app_lib/functions.cpp
-	mkdir -p obj
-	g++ -std=c++11 -c src/app_lib/functions.cpp -o obj/functions.o
+all: $(BIN_DIR)/game
 
-tests: obj/tests.o obj/functions.o
-	mkdir -p bin
-	g++ obj/tests.o obj/functions.o -o bin/tests -lsfml-graphics -lsfml-window -lsfml-system
+$(BIN_DIR)/game: $(OBJ_DIR)/main.o $(OBJ_DIR)/functions.o
+	mkdir -p $(BIN_DIR)
+	$(CC) $(OBJ_DIR)/main.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/game $(SFML_LIBS)
 
-obj/tests.o: tests/tests.cpp
-	mkdir -p obj
-	g++ -std=c++11 -c tests/tests.cpp -o obj/tests.o
+$(OBJ_DIR)/main.o: src/app/main.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CXXFLAGS) -c src/app/main.cpp -o $(OBJ_DIR)/main.o
 
-run_tests: bin/tests
-	./bin/tests
+$(OBJ_DIR)/functions.o: src/app_lib/functions.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CXXFLAGS) -c src/app_lib/functions.cpp -o $(OBJ_DIR)/functions.o
 
-run: bin/game
-	./bin/game
+tests: $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o
+	mkdir -p $(BIN_DIR)
+	$(CC) $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/tests $(SFML_LIBS)
+
+$(OBJ_DIR)/tests.o: tests/tests.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CXXFLAGS) -c tests/tests.cpp -o $(OBJ_DIR)/tests.o
+
+run_tests: $(BIN_DIR)/tests
+	./$(BIN_DIR)/tests
+
+run: $(BIN_DIR)/game
+	./$(BIN_DIR)/game
 
 clean:
-	rm -rf obj bin
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
